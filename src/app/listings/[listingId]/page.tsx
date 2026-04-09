@@ -11,7 +11,7 @@ interface ListingPageProps {
 export default async function ListingPage({ params }: ListingPageProps) {
   const { listingId } = await params;
   const listing = await getListingById(listingId);
-  const reservations = await getReservations({ listingId });
+  const reservations = await getReservations({ homeId: listingId });
   const currentUser = await getCurrentUser();
 
   if (!listing) {

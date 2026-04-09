@@ -4,11 +4,10 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { toast } from "sonner";
-import type { User } from "@/types";
-
+// 로그인 여부만 확인하므로 id 필드만 있으면 충분 (User/SafeUser 모두 허용)
 interface HeartButtonProps {
   homeId: string;
-  currentUser?: User | null;
+  currentUser?: { id: string } | null;
   isFavorited?: boolean;
 }
 

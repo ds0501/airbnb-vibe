@@ -3,11 +3,11 @@
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import type { Home, User } from "@/types";
+import type { SafeListing, User } from "@/types";
 import ListingCard from "@/components/listings/ListingCard";
 
 interface PropertiesClientProps {
-  homes: Home[];
+  homes: SafeListing[];
   currentUser: User;
 }
 

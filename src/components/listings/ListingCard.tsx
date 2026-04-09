@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import type { Home, User } from "@/types";
+import type { SafeListing } from "@/types";
 import { Button } from "../ui/button";
 import HeartButton from "../HeartButton";
 
@@ -17,13 +17,13 @@ interface ReservationWithDates {
 }
 
 interface ListingCardProps {
-  data: Home;
+  data: SafeListing;
   reservation?: ReservationWithDates;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
-  currentUser?: User | null;
+  currentUser?: { id: string } | null;
   isFavorited?: boolean;
 }
 

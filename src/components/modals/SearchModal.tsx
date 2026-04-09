@@ -54,9 +54,11 @@ export default function SearchModal() {
     // 마지막 스텝: URL 파라미터 구성 후 이동
     const current = qs.parse(searchParams.toString());
 
-    const query: Record<string, string | number | undefined> = {
-      ...current,
-    };
+    const query: Record<string, string | number | undefined> = {};
+    // qs.parse 결과(null/배열 포함)에서 string 값만 복사
+    for (const [k, v] of Object.entries(current)) {
+      if (typeof v === "string") query[k] = v;
+    }
 
     if (country) query.country = country.label;
     if (guestCount > 1) query.guests = guestCount;

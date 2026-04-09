@@ -23,8 +23,8 @@ type ReservationWithHome = {
     bedrooms: number;
     bathrooms: number;
     userId: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
   };
 };
 
