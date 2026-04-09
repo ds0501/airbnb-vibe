@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─────────────────────────────────────────────
+// User
+//   id = Kinde에서 받는 id를 그대로 PK로 사용
+// ─────────────────────────────────────────────
+model User {
+  id           String   @id           // Kinde ID를 PK로 직접 사용 (@default 없음)
+  email        String   @unique
+  firstName    String?
+  lastName     String?
+  profileImage String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // 1:N — User는 여러 Home을 등록할 수 있다
+  homes        Home[]
+  // 1:N — User는 여러 Reservation을 생성할 수 있다
+  reservations Reservation[]
+  // 1:N — User는 여러 Favorite을 가질 수 있다
+  favorites    Favorite[]
+}
+
+// ─────────────────────────────────────────────
+// Home (숙소)
+// ─────────────────────────────────────────────
+model Home {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  price        Int
+  guests       Int
+  bedrooms     Int
+  bathrooms    Int
+  country      String
+  photo        String
+  categoryName String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // FK → User (N:1)
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // 1:N — Home은 여러 Reservation을 가질 수 있다
+  reservations Reservation[]
+  // 1:N — Home은 여러 Favorite에 담길 수 있다
+  favorites    Favorite[]
+}
+
+// ─────────────────────────────────────────────
+// Reservation (예약)
+// ─────────────────────────────────────────────
+model Reservation {
+  id         String   @id @default(cuid())
+  startDate  DateTime
+  endDate    DateTime
+  totalPrice Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // FK → User (N:1) — 예약을 생성한 사용자
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // FK → Home (N:1) — 예약 대상 숙소
+  homeId     String
+  home       Home     @relation(fields: [homeId], references: [id], onDelete: Cascade)
+}
+
+// ─────────────────────────────────────────────
+// Favorite (관심 목록)
+// ─────────────────────────────────────────────
+model Favorite {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // FK → User (N:1)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // FK → Home (N:1)
+  homeId    String
+  home      Home     @relation(fields: [homeId], references: [id], onDelete: Cascade)
+
+  // 동일 사용자가 같은 숙소를 중복 저장 방지
+  @@unique([userId, homeId])
+}

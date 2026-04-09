@@ -1,0 +1,31 @@
+import {
+  Waves,
+  TrendingUp,
+  Sunset,
+  Mountain,
+  Gem,
+  Eye,
+  Palette,
+  Droplets,
+  Home,
+  Castle,
+  Trees,
+  Zap,
+  Wind,
+} from "lucide-react";
+
+export const categories = [
+  { label: "Beach",         icon: Waves,      description: "해변 근처 숙소" },
+  { label: "Trending",      icon: TrendingUp,  description: "인기 급상승 숙소" },
+  { label: "Beachfront",    icon: Sunset,      description: "해변 바로 앞 숙소" },
+  { label: "Earth Home",    icon: Mountain,    description: "자연 속 흙집 숙소" },
+  { label: "Luxe",          icon: Gem,         description: "럭셔리 숙소" },
+  { label: "Amazing View",  icon: Eye,         description: "멋진 전망의 숙소" },
+  { label: "Design",        icon: Palette,     description: "디자이너 숙소" },
+  { label: "Pool",          icon: Droplets,    description: "수영장 있는 숙소" },
+  { label: "Tiny Home",     icon: Home,        description: "아담한 소형 숙소" },
+  { label: "Historic Home", icon: Castle,      description: "역사적인 숙소" },
+  { label: "Countryside",   icon: Trees,       description: "시골 전원 숙소" },
+  { label: "WOW!",          icon: Zap,         description: "놀라운 숙소" },
+  { label: "Surfing",       icon: Wind,        description: "서핑 명소 숙소" },
+];
